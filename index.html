@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Reservations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Section -->
+        <div id="welcome-section" class="section active">
+            <div class="welcome-hero">
+<button onclick="showSection('auth-section')" class="welcome-btn">Start Now</button>
+            </div>
+        </div>
+
+        <!-- Login/Register Section -->
+        <div id="auth-section" class="section">
+            <div class="form-container">
+                <button class="back-welcome-btn" onclick="goToWelcome()">← Back to Welcome</button>
+                <h1>Airline Reservations</h1>
+                <p class="switch-mode" id="switch-to-register" style="display: block;">Don't have an account? <a href="#" onclick="toggleForm('register')">Create one</a></p>
+                <p class="switch-mode" id="switch-to-login" style="display: none;">Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+                
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form">
+                    <h2>Login</h2>
+                    <input type="email" id="login-email" placeholder="Email" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                    <p id="login-error" class="error"></p>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form" style="display: none;">
+                    <h2>Create Account</h2>
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
+                    <input type="email" id="reg-email" placeholder="Email" required>
+                    <input type="password" id="reg-password" placeholder="Password" required>
+                    <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
+                    <p id="reg-error" class="error"></p>
+                </form>
+            </div>
+        </div>
+        <div id="reservation-section" class="section">
+            <div class="form-container">
+                <button class="back-login-btn" onclick="goToLogin()">← Back to Login</button>
+                <h1>Book Your Flight</h1>
+                <form id="reservation-form">
+                    <div class="form-row">
+                        <select id="from-city" required>
+                            <option value="">From</option>
+                            <option value="New York">New York (JFK)</option>
+                            <option value="London">London (LHR)</option>
+                            <option value="Paris">Paris (CDG)</option>
+                            <option value="Tokyo">Tokyo (NRT)</option>
+                            <option value="Dubai">Dubai (DXB)</option>
+                            <option value="Riyadh">Riyadh (RUH)</option>
+                            <option value="Cairo">Cairo (CAI)</option>
+                            <option value="Jeddah">Jeddah (JED)</option>
+                            <option value="Doha">Doha (DOH)</option>
+                            <option value="Abu Dhabi">Abu Dhabi (AUH)</option>
+                            <option value="Kuwait">Kuwait (KWI)</option>
+                            <option value="Amman">Amman (AMM)</option>
+                            <option value="Beirut">Beirut (BEY)</option>
+                            <option value="Baghdad">Baghdad (BGW)</option>
+                            <option value="Muscat">Muscat (MCT)</option>
+                            <option value="Los Angeles">Los Angeles (LAX)</option>
+                            <option value="Sydney">Sydney (SYD)</option>
+                            <option value="Berlin">Berlin (BER)</option>
+                            <option value="Madrid">Madrid (MAD)</option>
+                            <option value="Singapore">Singapore (SIN)</option>
+                            <option value="Mumbai">Mumbai (BOM)</option>
+                            <option value="Toronto">Toronto (YYZ)</option>
+                            <option value="Rio de Janeiro">Rio de Janeiro (GIG)</option>
+                            <option value="Cape Town">Cape Town (CPT)</option>
+                        </select>
+                        <select id="to-city" required>
+                            <option value="">To</option>
+                            <option value="New York">New York (JFK)</option>
+                            <option value="London">London (LHR)</option>
+                            <option value="Paris">Paris (CDG)</option>
+                            <option value="Tokyo">Tokyo (NRT)</option>
+                            <option value="Dubai">Dubai (DXB)</option>
+                            <option value="Riyadh">Riyadh (RUH)</option>
+                            <option value="Cairo">Cairo (CAI)</option>
+                            <option value="Jeddah">Jeddah (JED)</option>
+                            <option value="Doha">Doha (DOH)</option>
+                            <option value="Abu Dhabi">Abu Dhabi (AUH)</option>
+                            <option value="Kuwait">Kuwait (KWI)</option>
+                            <option value="Amman">Amman (AMM)</option>
+                            <option value="Beirut">Beirut (BEY)</option>
+                            <option value="Baghdad">Baghdad (BGW)</option>
+                            <option value="Muscat">Muscat (MCT)</option>
+                            <option value="Los Angeles">Los Angeles (LAX)</option>
+                            <option value="Sydney">Sydney (SYD)</option>
+                            <option value="Berlin">Berlin (BER)</option>
+                            <option value="Madrid">Madrid (MAD)</option>
+                            <option value="Singapore">Singapore (SIN)</option>
+                            <option value="Mumbai">Mumbai (BOM)</option>
+                            <option value="Toronto">Toronto (YYZ)</option>
+                            <option value="Rio de Janeiro">Rio de Janeiro (GIG)</option>
+                            <option value="Cape Town">Cape Town (CPT)</option>
+                        </select>
+                    </div>
+                    <input type="number" id="num-people" placeholder="Number of People" min="1" max="10" required>
+                    <button type="submit">Show Timetable</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div id="timetable-section" class="section">
+            <div class="form-container">
+                <button class="back-btn" onclick="goToReservation()">← Back</button>
+                <h1>Flight Timetable</h1>
+                <p id="route-display"></p>
+                <p>Choose your flight:</p>
+                <div id="flights-list" class="flights-grid"></div>
+                <button id="select-flight-btn" onclick="goToSeats()">Continue to Seats</button>
+                <p id="timetable-error" class="error"></p>
+            </div>
+        </div>
+
+        <!-- Seats Selection Section -->
+        <div id="seats-section" class="section">
+            <div class="form-container">
+                <button class="back-btn" onclick="goToTimetable()">← Back to Flights</button>
+                <h1>Select Seats</h1>
+                <p id="flight-details"></p>
+                <p>Choose <span id="num-seats-needed"></span> seats:</p>
+                <div id="seats-grid" class="seats-grid"></div>
+                <button id="confirm-seats-btn" class="confirm-btn" style="display: none;" onclick="confirmSeats()">Confirm Seats & Book</button>
+                <p id="seats-error" class="error"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="style.js"></script>
+</body>
+</html>
